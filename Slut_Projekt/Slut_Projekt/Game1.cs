@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Slut_Projekt.Graphics;
+using Slut_Projekt.Shared;
 
 namespace Slut_Projekt
 {
@@ -9,6 +11,7 @@ namespace Slut_Projekt
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        Sprite test;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -21,13 +24,20 @@ namespace Slut_Projekt
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+            _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+            _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            var temp = Content.Load<Texture2D>("Player");
+
+            test = new Sprite(temp, new Vector2(153, 255)) { _input = new Input() };
         }
 
         protected override void Update(GameTime gameTime)
@@ -35,7 +45,7 @@ namespace Slut_Projekt
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            test.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -44,7 +54,12 @@ namespace Slut_Projekt
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+
+            test.Draw(_spriteBatch, new Rectangle(0, 0, 100, 100));
+
+            _spriteBatch.End();
+
 
             base.Draw(gameTime);
         }
