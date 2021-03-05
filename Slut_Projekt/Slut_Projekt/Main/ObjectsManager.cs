@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Slut_Projekt.Graphics;
+using Slut_Projekt.Weapons;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Slut_Projekt.Main
 {
     class ObjectsManager
     {
+        
         private List<Sprite> _objects;
         private List<Texture2D> _textures;
         private List<SoundEffect> _sounds;
@@ -49,8 +51,13 @@ namespace Slut_Projekt.Main
         {
             if (_objects.Any())
             {
-                foreach (var i in _objects)
+                foreach (var i in _objects.ToArray())
+                {
+                    if (i.ShouldRemove)
+                        _objects.Remove(i);
                     i.Update(gameTime);
+                }
+                    
             }
         }
         public void Draw(SpriteBatch spriteBatch)
@@ -95,7 +102,7 @@ namespace Slut_Projekt.Main
 
         public void Start()
         {
-            var Player = new Player(_textures[0]);
+            var Player = new Player(_textures[0], _textures[1], this);
             AddObject(Player);
         }
 

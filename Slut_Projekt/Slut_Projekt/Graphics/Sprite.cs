@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Slut_Projekt.Graphics
 {
-    class Sprite
+    class Sprite : ICloneable
     {
         private const Double SPRITE_DIRTECTION_CORRECTION = Math.PI/2;
 
@@ -17,15 +17,15 @@ namespace Slut_Projekt.Graphics
         protected Vector2 _origin;
 
 
-        protected float _rotation;
-        protected Vector2 _direction;
+        public float _rotation;
+        public Vector2 _direction;
+        public Vector2 Position;
 
 
-        protected Vector2 Position { get; set; }
+        public bool ShouldRemove { get; set; } = false;
         protected float RotationVelocity { get; set; } = 3f;
         protected float MovementSpeed { get; set; } = 5f;
-
-
+        
 
 
         public Sprite(Texture2D texture)
@@ -45,5 +45,9 @@ namespace Slut_Projekt.Graphics
         }
 
 
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }
