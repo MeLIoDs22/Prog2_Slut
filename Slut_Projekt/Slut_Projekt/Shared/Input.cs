@@ -7,36 +7,33 @@ namespace Slut_Projekt.Shared
 {
     class Input
     {
-        public bool up;
-        public bool down;
-        public bool left;
-        public bool right;
+        public bool Up;
+        public bool Down;
+        public bool Left;
+        public bool Right;
 
         public void Update()
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
-            {
-                up = true;
-            }
-            else { up = false; }
-            
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
+                Up = true;
+            else { Up = false; }
+
+
             if(Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.S))
-            {
-                down = true;
-            }
-            else { down = false; }
+                Down = true;
+            else { Down = false; }
+
             
             if(Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                left = true;
-            }
-            else { left = false; }
+                Left = true;
+            else { Left = false; }
+
             
             if(Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
-            {
-                right = true;
-            }
-            else { right = false; }
+                Right = true;
+            else { Right = false; }
+
         }
     }
 }

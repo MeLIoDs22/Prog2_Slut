@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Slut_Projekt.Graphics;
+using Slut_Projekt.Main;
 using Slut_Projekt.Shared;
+using System.Collections.Generic;
 
 namespace Slut_Projekt
 {
@@ -11,7 +13,7 @@ namespace Slut_Projekt
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        Sprite test;
+        private ObjectsManager Manager;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -21,23 +23,25 @@ namespace Slut_Projekt
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
 
             base.Initialize();
 
+            // Makes game full screen.
             _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
             _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
             _graphics.IsFullScreen = true;
             _graphics.ApplyChanges();
+
+            Manager.Start();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            var temp = Content.Load<Texture2D>("Player");
+            Manager = new ObjectsManager();
 
-            test = new Sprite(temp, new Vector2(153, 255)) { _input = new Input() };
+            Manager.Load(Content, new List<string>() { "Player", "Bullet"});
         }
 
         protected override void Update(GameTime gameTime)
@@ -45,21 +49,20 @@ namespace Slut_Projekt
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            test.Update(gameTime);
+            Manager.Update(gameTime);
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
 
             _spriteBatch.Begin();
 
-            test.Draw(_spriteBatch, new Rectangle(0, 0, 100, 100));
+            Manager.Draw(_spriteBatch);
 
             _spriteBatch.End();
-
 
             base.Draw(gameTime);
         }
