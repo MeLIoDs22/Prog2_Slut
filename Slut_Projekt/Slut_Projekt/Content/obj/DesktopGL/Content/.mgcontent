@@ -4,8 +4,8 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Development/Projects/Prog2_Slut/Slut_Projekt/Slut_Projekt/Content/Bullet.png</File>
-    <File>C:/Development/Projects/Prog2_Slut/Slut_Projekt/Slut_Projekt/Content/Player.png</File>
+    <File>C:/Users/Admin/Documents/GitHub/Prog2_Slut/Slut_Projekt/Slut_Projekt/Content/Bullet.png</File>
+    <File>C:/Users/Admin/Documents/GitHub/Prog2_Slut/Slut_Projekt/Slut_Projekt/Content/Player.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

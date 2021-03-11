@@ -41,7 +41,8 @@ namespace Slut_Projekt
 
             Manager = new ObjectsManager();
 
-            Manager.Load(Content, new List<string>() { "Player", "Bullet"});
+            Manager.AddTexture("Player", Content.Load<Texture2D>("Player"));
+            Manager.AddTexture("Bullet", Content.Load<Texture2D>("Bullet"));
         }
 
         protected override void Update(GameTime gameTime)
@@ -60,7 +61,7 @@ namespace Slut_Projekt
 
             _spriteBatch.Begin();
 
-            Manager.Draw(_spriteBatch);
+            Manager.Draw(_spriteBatch, gameTime);
 
             _spriteBatch.End();
 

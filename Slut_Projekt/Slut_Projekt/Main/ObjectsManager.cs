@@ -9,15 +9,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Slut_Projekt.Shared;
+
 namespace Slut_Projekt.Main
 {
-    class ObjectsManager
+    class ObjectsManager : BaseObject
     {
-        
+        #region Fields
         private List<Sprite> _objects;
-        private List<Texture2D> _textures;
-        private List<SoundEffect> _sounds;
+        private Dictionary<string, Texture2D> _textures;
+        private Dictionary<string, SoundEffect> _sounds;
 
+        #endregion
+
+        #region Properties
         public IReadOnlyCollection<Sprite> Objects
         {
             get
@@ -25,29 +30,19 @@ namespace Slut_Projekt.Main
                 return _objects.AsReadOnly();
             }
         }
-        public IReadOnlyCollection<Texture2D> Textures
-        {
-            get
-            {
-                return _textures.AsReadOnly();
-            }
-        }
-        public IReadOnlyCollection<SoundEffect> Sounds
-        {
-            get
-            {
-                return _sounds.AsReadOnly();
-            }
-        }
 
+        #endregion
+
+        #region Methods
         public ObjectsManager()
         {
             _objects = new List<Sprite>();
-            _textures = new List<Texture2D>();
-            _sounds = new List<SoundEffect>();
+            _textures = new Dictionary<string, Texture2D>();
+            _sounds = new Dictionary<string, SoundEffect>();
         }
 
-        public void Update(GameTime gameTime)
+        #region IBasicObject
+        public override void Update(GameTime gameTime)
         {
             if (_objects.Any())
             {
@@ -60,17 +55,18 @@ namespace Slut_Projekt.Main
                     
             }
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             if (_objects.Any())
             {
                 foreach (var i in _objects)
-                    i.Draw(spriteBatch);
+                    i.Draw(spriteBatch, gameTime);
             }
         }
 
+        #endregion
 
-
+        #region Add_Remove_Objects
         public void AddObject(Sprite sprite)
         {
             if (sprite != null)
@@ -83,28 +79,37 @@ namespace Slut_Projekt.Main
                     _objects.Remove(sprite);
         }
 
+        #endregion
 
+        #region Add_Content
 
-        public void Load(ContentManager content, List<string> textures = null, List<string> sounds = null)
+        public void AddTexture(string textureName, Texture2D texture)
         {
-            if (textures != null)
+            if(texture != null)
             {
-                foreach (var i in textures)
-                    _textures.Add(content.Load<Texture2D>(i));
-            }
-
-            if (sounds != null)
-            {
-                foreach (var i in sounds)
-                    _sounds.Add(content.Load<SoundEffect>(i));
+                if (_textures.ContainsKey(textureName))
+                    throw new Exception("Texture already exists.");
+                else
+                    _textures.Add(textureName, texture);
             }
         }
 
+        public void AddSound(string soundName, SoundEffect sound)
+        {
+            if(sound != null)
+            {
+                if (_sounds.ContainsKey(soundName))
+                    throw new Exception("SoundEffect already exists.");
+                else
+                    _sounds.Add(soundName, sound);
+            }
+        }
+        #endregion
         public void Start()
         {
-            var Player = new Player(_textures[0], _textures[1], this);
+            var Player = new Player(_textures["Player"], _textures["Bullet"], this);
             AddObject(Player);
         }
-
+        #endregion
     }
 }

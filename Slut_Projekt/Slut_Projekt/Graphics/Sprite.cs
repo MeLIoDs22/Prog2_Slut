@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Slut_Projekt.Graphics
 {
-    class Sprite : ICloneable
+    class Sprite : BaseObject, ICloneable
     {
         private const Double SPRITE_DIRTECTION_CORRECTION = Math.PI/2;
 
@@ -35,11 +35,11 @@ namespace Slut_Projekt.Graphics
 
 
 
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
         }
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(_texture, Position, null, Color.White, _rotation, _origin, 1, SpriteEffects.None, 0);
         }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Slut_Projekt.Shared
 {
-    class Input
+    class Inputs
     {
         public bool Up;
         public bool Down;

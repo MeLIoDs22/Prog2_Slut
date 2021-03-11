@@ -10,14 +10,24 @@ using Slut_Projekt;
 
 namespace Slut_Projekt.Main
 {
-    class Player : Sprite 
+    class Player : Sprite, ILiving
     {
-        private Input _input;
+        #region Fields
+
+        private Inputs _input;
         private Bullet _bullet;
         private ObjectsManager _manager;
+
+        #endregion
+
+        #region Properties
+
+        public bool _isAlive { get ; private set; }
+
+        #endregion
         public Player(Texture2D texture, Texture2D bullet, ObjectsManager manager) : base(texture)
         {
-            _input = new Input();
+            _input = new Inputs();
             _bullet = new Bullet(bullet);
             _manager = manager;
 
@@ -25,8 +35,7 @@ namespace Slut_Projekt.Main
             Position = new Vector2(960, 1000);
         }
 
-
-
+        #region Methods
         public override void Update(GameTime gameTime)
         {
             _input.Update();
@@ -61,7 +70,8 @@ namespace Slut_Projekt.Main
 
             _manager.AddObject(Bullet);
 
-
         }
+
+        #endregion
     }
 }
